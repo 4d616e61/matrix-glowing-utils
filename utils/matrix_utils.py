@@ -1,4 +1,4 @@
-import postgres_query
+import utils.postgres_query
 
 
 
