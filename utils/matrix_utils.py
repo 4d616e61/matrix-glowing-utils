@@ -19,6 +19,8 @@ def get_room_name_by_id(room_id : str):
         return "Unnamed room"
     return res[0][0]
 
+def get_user_tokens(user_id : str):
+    return postgres_query.query(f"select token from access_tokens where user_id = '{user_id}'")
 
 def get_memberships_by_user_id(user_id : str):
     return postgres_query.query(f"select user_id, room_id, membership, event_stream_ordering from room_memberships where user_id = '{user_id}'")
