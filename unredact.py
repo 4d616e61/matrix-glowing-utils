@@ -1,5 +1,5 @@
 #!/bin/python
-import utils.matrix_utils
+import utils.matrix_utils as matrix_utils
 import sys
 import json
 
