@@ -13,7 +13,7 @@ res_pg = matrix_utils.get_all_events_matching(f"room_id='{sys.argv[1]}' and type
 
 res_parsed = []
 for v in res_pg:
-    res_parsed.append(json.loads(v))
+    res_parsed.append(json.loads(v[0]))
 
 res_parsed.sort(key= lambda d : d["origin_server_ts"])
 
