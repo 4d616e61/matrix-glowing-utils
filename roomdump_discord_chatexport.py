@@ -102,7 +102,7 @@ def main():
 
     final_dict["messages"] = res_events
 
-    print(json.dumps(final_dict, indent=4))
+    print(json.dumps(final_dict))
 
 
 
