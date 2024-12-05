@@ -62,6 +62,7 @@ def convert_entry(inp : dict) -> dict:
     return res
 
 def main():
+    matrix_utils.init_pg()
     res_pg = matrix_utils.get_all_events_matching(f"room_id='{sys.argv[1]}' and type = 'm.room.message' limit 10")
 
 
