@@ -1,4 +1,5 @@
 import utils.matrix_utils as matrix_utils
+import utils.misc as misc
 import sys
 import json
 import pytz
@@ -8,21 +9,10 @@ from datetime import datetime
 tz = pytz.timezone('America/Los_Angeles')
 
 
-import hashlib
 
-def hash_string_to_int(string):
-    # Create a hash object (SHA-256 is a good choice)
-    hash_object = hashlib.sha256(string.encode())
 
-    # Get the hexadecimal representation of the hash
-    hex_digest = hash_object.hexdigest()
-
-    # Convert the hexadecimal representation to an integer
-    int_value = int(hex_digest, 16)
-
-    # Return the absolute value to ensure a positive integer
-    return abs(int_value)
-
+def get_channel_name(room_id : str):
+    return matrix_utils.get_room_name_by_id(room_id)
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
@@ -35,7 +25,8 @@ def format_author(orig_author : str) -> str:
     return orig_author.replace(":", "_")
 def convert_entry(inp : dict) -> dict:
     sender = inp["sender"]
-    sender_uid = str(hash_string_to_int(inp["sender"]))[:32]
+    #idk if this works, but i hope it does
+    sender_uid = misc.hash_string_truncated(sender, 32)
     res = {
         #no ones gonna know...
         "id" : inp["origin_server_ts"],
@@ -69,7 +60,8 @@ def convert_entry(inp : dict) -> dict:
 
 def main():
     matrix_utils.init_pg()
-    res_pg = matrix_utils.get_all_events_matching(f"room_id='{sys.argv[1]}' and type = 'm.room.message'")
+    roomid = sys.argv[1]
+    res_pg = matrix_utils.get_all_events_matching(f"room_id='{roomid}' and type = 'm.room.message'")
 
 
     res_parsed = []
@@ -86,11 +78,11 @@ def main():
         "iconUrl": "https://example.com"
     }
     final_dict["channel"] = {
-        "id": "1337",
+        "id": misc.hash_string_truncated(roomid, 32),
         "type": "GuildTextChat",
         "categoryId": "420",
         "category": "channels",
-        "name": "general",
+        "name": get_channel_name(roomid),
         "topic": None
     }
     final_dict["daterange"] = {

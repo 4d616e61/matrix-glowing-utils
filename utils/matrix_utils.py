@@ -1,5 +1,5 @@
 import utils.postgres_query as postgres_query
-
+import utils.misc as misc
 
 
 
@@ -15,8 +15,8 @@ def get_event(event_id : str):
 
 def get_room_name_by_id(room_id : str):
     res = postgres_query.query(f"select name from room_stats_state where room_id = '{room_id}'")
-    if len(res) == 0:
-        return "Unnamed room"
+    if res[0][0] == None:
+        return "Unnamed room_" + misc.hash_string_truncated(room_id)
     return res[0][0]
 
 def get_user_tokens(user_id : str):
