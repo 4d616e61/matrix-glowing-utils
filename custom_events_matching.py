@@ -10,7 +10,7 @@ res = matrix_utils.get_all_events_matching(sys.argv[1], sys.argv[2] if len(sys.a
 
 for v in res:
     print("MESSAGE:")
-    (json.loads(v[0])["content"]["body"])
+    print(json.loads(v[0])["content"]["body"])
 
 
 
