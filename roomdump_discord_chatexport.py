@@ -40,7 +40,9 @@ def convert_entry(inp : dict) -> dict:
         "timestampEdited": None,
         "callEndedTimestamp": None,
         "isPinned": None,
-        "content": inp["content"]["body"],
+        "content": inp["content"]["body"] 
+        if "body" in inp["content"].keys() 
+        else "",
         "author": {
             "id": str(hash_string_to_int(inp["sender"]))[:32],
             "name": inp["sender"],
