@@ -96,6 +96,7 @@ def main():
     res_events = []
     eprint("Converting... ")
     for v in res_parsed:
+        eprint(v)
         res_events.append(convert_entry(v))
 
 
