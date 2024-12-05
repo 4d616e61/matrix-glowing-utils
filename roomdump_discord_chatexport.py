@@ -42,7 +42,7 @@ def convert_entry(inp : dict) -> dict:
         "isPinned": None,
         "content": inp["content"]["body"],
         "author": {
-            "id": hash_string_to_int(inp["sender"])[:32],
+            "id": str(hash_string_to_int(inp["sender"]))[:32],
             "name": inp["sender"],
             "discriminator": "0000",
             "nickname": inp["sender"],
