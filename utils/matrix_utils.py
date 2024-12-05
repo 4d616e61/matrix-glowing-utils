@@ -43,3 +43,14 @@ def get_rooms_with_user(user_id : str):
             continue
         joins.append(k)
     return (joins,rooms)
+
+
+
+def get_all_events_matching(events_cond = "", events_json_cond = ""):
+    if len(events_cond) != 0:
+        events_cond = "where " + events_cond
+    if len(events_json_cond) != 0:
+        events_json_cond = "and " + events_json_cond
+    inner = f"with eid as (select event_id from events {events_cond})"
+    outer = f"select json from event_json where event_id = ANY (select event_id from eid) {events_json_cond}"
+    return postgres_query.query(inner + outer)
