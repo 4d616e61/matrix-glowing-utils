@@ -31,7 +31,11 @@ def gen_ts(unixtime) -> str:
     return datetime.fromtimestamp(unixtime / 1000, tz).isoformat()
  
 
+def format_author(orig_author : str) -> str:
+    return orig_author.replace(":", "_")
 def convert_entry(inp : dict) -> dict:
+    sender = format_author(inp["sender"])
+    sender_uid = str(hash_string_to_int(inp["sender"]))[:32]
     res = {
         #no ones gonna know...
         "id" : inp["origin_server_ts"],
@@ -44,10 +48,10 @@ def convert_entry(inp : dict) -> dict:
         if "body" in inp["content"].keys() 
         else "",
         "author": {
-            "id": str(hash_string_to_int(inp["sender"]))[:32],
-            "name": inp["sender"],
+            "id": sender_uid,
+            "name": sender,
             "discriminator": "0000",
-            "nickname": inp["sender"],
+            "nickname": sender,
             "color": None,
             "isBot": False,
             "roles": [],
