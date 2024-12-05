@@ -93,7 +93,7 @@ def main():
         "after": None,
         "before": None
     }
-    final_dict["exportedAt"] = gen_ts(res_events[0]["origin_server_ts"])
+    final_dict["exportedAt"] = gen_ts(res_parsed[0]["origin_server_ts"])
     final_dict["messageCount"] = len(res_parsed)
     res_events = []
     eprint("Converting... ")
