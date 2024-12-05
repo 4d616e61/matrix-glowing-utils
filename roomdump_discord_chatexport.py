@@ -56,7 +56,7 @@ def convert_entry(inp : dict) -> dict:
         "stickers": [],
         "reactions": [],
         "mentions": []
-    },
+    }
 
     
     return res
