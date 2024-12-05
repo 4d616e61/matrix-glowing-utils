@@ -34,7 +34,7 @@ def gen_ts(unixtime) -> str:
 def format_author(orig_author : str) -> str:
     return orig_author.replace(":", "_")
 def convert_entry(inp : dict) -> dict:
-    sender = format_author(inp["sender"])
+    sender = inp["sender"]
     sender_uid = str(hash_string_to_int(inp["sender"]))[:32]
     res = {
         #no ones gonna know...
