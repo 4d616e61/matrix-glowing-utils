@@ -7,7 +7,7 @@ import json
 matrix_utils.init_pg()
 
 limit = 16
-if len(sys.argv) >= 1:
+if len(sys.argv) > 1:
     limit = int(sys.argv[1]) 
     
 
