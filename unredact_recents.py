@@ -19,7 +19,7 @@ for ev in res_redact_events:
     print(ev["redacts"])
     events_final.append(matrix_utils.get_event(ev["redacts"]))
 for ev in events_final:
-    print(ev)
+
     
     print("RAW JSON:")
     print(json_reserialize(ev))
@@ -27,7 +27,7 @@ for ev in events_final:
 print("\n\n\n")
 
 for ev in events_final:
-    print(ev)
+
     
     print("MESSAGE:")
     print(format_event_json(ev))
