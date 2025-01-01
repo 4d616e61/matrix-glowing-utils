@@ -18,7 +18,7 @@ for ev in res_redact_events:
     ev = json.loads(ev[0])
     print(ev["redacts"])
     events_final.append(matrix_utils.get_event(ev["redacts"])[0])
-
+print(events_final)
 for ev in events_final:
     print(ev)
     ev = ev[0]
