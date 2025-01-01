@@ -20,7 +20,7 @@ def eprint(*args, **kwargs):
 
 def format_event_json(event_json_data : str):
     try:
-        json.loads(event_json_data)
+        return json.loads(event_json_data)
     except:
         eprint(f"Format error encountered while processing {event_json_data}")
     
