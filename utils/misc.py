@@ -30,13 +30,19 @@ def __internal_fmt_event(sender, content) -> str:
     is_reply = "m.relates_to" in content.keys()
     if is_reply:
         is_reply = "m.in_reply_to" in content["m.relates_to"].keys()
-    res = sender + ": "
+    
     if is_reply:
-        #assumption about formatting isnt necessarily correct
-        body_pieces = body_nofmt.split("\n\n")
-        res += f"\n  Replying to \"{body_pieces[0]}\":\n{body_pieces[1]}"
-    else:
-        res += body_nofmt
+        try:
+            res = sender + ": "
+            #assumption about formatting isnt necessarily correct
+            body_pieces = body_nofmt.split("\n\n")
+            res += f"\n  Replying to \"{body_pieces[0]}\":\n{body_pieces[1]}"
+            return res;
+        except:
+            #silently fall back for now, idrc
+            pass
+    res = sender + ": "
+    res += body_nofmt
     return res
 
 
