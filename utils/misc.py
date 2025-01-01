@@ -46,6 +46,6 @@ def format_event_json(event_json_data : str):
         sender = event["sender"]
         content = event["content"]
         return __internal_fmt_event(sender, content)
-    except:
-        eprint(f"Format error encountered while processing {event_json_data}")
+    except Exception as e:
+        eprint(f"{e} encountered while processing {event_json_data}")
     
