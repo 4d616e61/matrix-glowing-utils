@@ -18,9 +18,31 @@ def hash_string_truncated(string : str, chars = 16):
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
+
+
+def __internal_fmt_event(sender, content) -> str:
+    body_nofmt = content["body"]
+    #do 2 checks
+    is_reply = "m.relates_to" in content.keys()
+    if is_reply:
+        is_reply = "m.in_reply_to" in content["m.relates_to"].keys()
+    res = sender + ": "
+    if is_reply:
+        #assumption about formatting isnt necessarily correct
+        body_pieces = body.split("\n\n")
+        res += f"  Replying to {body_pieces[0]}:\n{body_pieces[1]}"
+    else:
+        res += body
+    return res
+
+
+
 def format_event_json(event_json_data : str):
     try:
-        return json.loads(event_json_data)
+        event = json.loads(event_json_data)
+        sender = event["sender"]
+        content = event["content"]
+        return __internal_fmt_event(sender, content)
     except:
         eprint(f"Format error encountered while processing {event_json_data}")
     
