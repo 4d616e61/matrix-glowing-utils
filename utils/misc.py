@@ -1,6 +1,7 @@
 import hashlib
 import sys
 import json
+import traceback
 
 def get_hash(string : str) -> str:
     return hashlib.sha256(string.encode()).hexdigest()
@@ -47,5 +48,5 @@ def format_event_json(event_json_data : str):
         content = event["content"]
         return __internal_fmt_event(sender, content)
     except Exception as e:
-        eprint(f"{e.with_traceback()} encountered while processing {event_json_data}")
+        eprint(f"{traceback.format_exc()} encountered while processing {event_json_data}")
     
