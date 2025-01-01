@@ -36,7 +36,7 @@ def __internal_fmt_event(sender, content) -> str:
         body_pieces = body_nofmt.split("\n\n")
         res += f"  Replying to {body_pieces[0]}:\n{body_pieces[1]}"
     else:
-        res += body
+        res += body_nofmt
     return res
 
 
