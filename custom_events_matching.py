@@ -12,6 +12,8 @@ for v in res:
     #print("MESSAGE:")
     json_data = v[0]
     dat = format_event_json(json_data)
+    if dat == None:
+        continue
     print(dat)
     
     

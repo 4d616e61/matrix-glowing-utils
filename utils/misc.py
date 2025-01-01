@@ -21,6 +21,9 @@ def eprint(*args, **kwargs):
 
 
 def __internal_fmt_event(sender, content) -> str:
+    #silently drop event if missing body
+    if not "body" in content:
+        return None
     body_nofmt = content["body"]
     #do 2 checks
     is_reply = "m.relates_to" in content.keys()
