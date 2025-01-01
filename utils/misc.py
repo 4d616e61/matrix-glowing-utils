@@ -22,7 +22,7 @@ def eprint(*args, **kwargs):
 
 def __internal_fmt_event(sender, content) -> str:
     #silently drop event if missing body
-    if not "body" in content:
+    if not "body" in content.keys():
         return None
     body_nofmt = content["body"]
     #do 2 checks
