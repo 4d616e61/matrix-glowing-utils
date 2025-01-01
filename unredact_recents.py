@@ -21,7 +21,6 @@ for ev in res_redact_events:
 for ev in events_final:
 
     
-    print("RAW JSON:")
     print(json_reserialize(ev))
 
 print("\n\n\n")
@@ -29,6 +28,5 @@ print("\n\n\n")
 for ev in events_final:
 
     
-    print("MESSAGE:")
     print(format_event_json(ev))
     
