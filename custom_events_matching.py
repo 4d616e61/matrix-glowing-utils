@@ -1,7 +1,7 @@
 import utils.matrix_utils as matrix_utils
 import sys
 import json
-
+from utils.misc import *
 matrix_utils.init_pg()
 
 
@@ -10,10 +10,11 @@ res = matrix_utils.get_all_events_matching(sys.argv[1], sys.argv[2] if len(sys.a
 
 for v in res:
     #print("MESSAGE:")
-    try:
-        print(json.loads(v[0])["content"]["body"])
-    except:
-        pass
+    json_data = v[0]
+    dat = format_event_json(json_data)
+    print(dat)
+    
+    
 
 
 
