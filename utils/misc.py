@@ -23,7 +23,7 @@ def __fmt_media(sender, content):
     res = sender + ": \n"
     res += f"Image: {content["url"]}"  
     if "body" in content.keys():
-        res += "\n" + content["body"]
+        res += " : " + content["body"]
     return res
 
 def __fmt_text(sender, content):
