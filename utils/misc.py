@@ -51,7 +51,8 @@ def __fmt_text(sender, content):
     return res
 
 
-def __internal_fmt_event(sender, content, msgtype) -> str:
+def __internal_fmt_event(sender, content) -> str:
+    msgtype = content["msgtype"]
     if msgtype == "m.image":
         return __fmt_media(sender, content)
     return __fmt_text(sender, content)
@@ -62,12 +63,11 @@ def format_event_json(event_json_data : str):
     try:
         event = json.loads(event_json_data)
         sender = event["sender"]
-        content = event["content"]
-        msgtype = content["msgtype"]
-        type_outer = content["type"]
+        content = event["content"]  
+        type_outer = event["type"]
         if type_outer == "m.room.encrypted":
             return None
-        return __internal_fmt_event(sender, content, msgtype)
+        return __internal_fmt_event(sender, content)
     except Exception as e:
         eprint(f"{traceback.format_exc()} encountered while processing {event_json_data}")
     
