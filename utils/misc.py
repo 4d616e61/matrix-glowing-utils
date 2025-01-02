@@ -64,6 +64,9 @@ def format_event_json(event_json_data : str):
         sender = event["sender"]
         content = event["content"]
         msgtype = content["msgtype"]
+        type_outer = content["type"]
+        if type_outer == "m.room.encrypted":
+            return None
         return __internal_fmt_event(sender, content, msgtype)
     except Exception as e:
         eprint(f"{traceback.format_exc()} encountered while processing {event_json_data}")
