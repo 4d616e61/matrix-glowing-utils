@@ -63,7 +63,7 @@ def format_event_json(event_json_data : str):
         event = json.loads(event_json_data)
         sender = event["sender"]
         content = event["content"]
-        msgtype = event["msgtype"]
+        msgtype = content["msgtype"]
         return __internal_fmt_event(sender, content, msgtype)
     except Exception as e:
         eprint(f"{traceback.format_exc()} encountered while processing {event_json_data}")
