@@ -20,7 +20,7 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 def __fmt_media(sender, content):
-    res = sender + ": \n"
+    res = sender + ": "
     res += f"Image: {content["url"]}"  
     if "body" in content.keys():
         res += " : " + content["body"]
