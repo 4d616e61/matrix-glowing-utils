@@ -29,7 +29,6 @@ def convert_entry(inp : dict) -> dict:
     sender_uid = misc.hash_string_truncated(sender, 32)
     msg_id = int(misc.hash_string_truncated(inp["event_id"], 32), 16)
     res = {
-        #no ones gonna know...
         "id" : msg_id,
         "type" : "Default",
         "timestamp" : gen_ts(inp["origin_server_ts"]),
@@ -59,9 +58,7 @@ def convert_entry(inp : dict) -> dict:
     
     return res
 
-def main():
-    matrix_utils.init_pg()
-    roomid = sys.argv[1]
+def dump_room(roomid):
     res_pg = matrix_utils.get_all_events_matching(f"room_id='{roomid}' and type = 'm.room.message'")
 
 
@@ -101,7 +98,16 @@ def main():
 
     final_dict["messages"] = res_events
 
-    print(json.dumps(final_dict))
+    return json.dumps(final_dict)
+def main():
+    matrix_utils.init_pg()
+    if len(sys.argv) <= 1:
+        return
+
+    for roomid in sys.argv[1:]:
+        res = dump_room(roomid)
+        with open(roomid + ".json", "r") as f:
+            f.write(res)
 
 
 
