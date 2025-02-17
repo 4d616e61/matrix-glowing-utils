@@ -27,7 +27,6 @@ def convert_entry(inp : dict) -> dict:
     sender = inp["sender"]
     #idk if this works, but i hope it does
     sender_uid = misc.hash_string_truncated(sender, 32)
-    print(inp)
     msg_id = int(misc.hash_string_truncated(inp["event_id"], 32), 16)
     res = {
         "id" : msg_id,
