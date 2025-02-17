@@ -13,11 +13,37 @@ def get_event(event_id : str):
     return postgres_query.query(f"select json from event_json where event_id = '{event_id}'")[0][0]
 
 
+#deprecated(kind of)
 def get_room_name_by_id(room_id : str):
     res = postgres_query.query(f"select name from room_stats_state where room_id = '{room_id}'")
     if res[0][0] == None:
         return "Unnamed room_" + misc.hash_string_truncated(room_id)
     return res[0][0]
+
+def get_room_info_by_id(room_id : str):
+    res = postgres_query.query(f"select name, canonical_alias, topic, join_rules from room_stats_state where room_id = '{room_id}'")
+    assert(len(res) == 1)
+    res_e = res[0]
+
+    name = res_e[0]
+    alias = res_e[1]
+    topic = res_e[2]
+    join_rules = res_e[3]
+    roomid_hash = misc.hash_string_truncated(room_id)
+    if name == None:
+        name = "Unnamed room_" + roomid_hash
+    if alias == None:
+        alias = "#no-alias-" + roomid_hash + ":example.com"
+    if topic == None:
+        topic = ""
+
+    return {
+        "name" : name,
+        "alias" : alias,
+        "topic" : topic,
+        "join_rules" : join_rules
+        
+    }
 
 def get_user_tokens(user_id : str):
     return postgres_query.query(f"select token from access_tokens where user_id = '{user_id}'")

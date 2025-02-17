@@ -27,9 +27,10 @@ def convert_entry(inp : dict) -> dict:
     sender = inp["sender"]
     #idk if this works, but i hope it does
     sender_uid = misc.hash_string_truncated(sender, 32)
+    msg_id = int(misc.hash_string_truncated(inp["event_id"], 32), 16)
     res = {
         #no ones gonna know...
-        "id" : inp["origin_server_ts"],
+        "id" : msg_id,
         "type" : "Default",
         "timestamp" : gen_ts(inp["origin_server_ts"]),
         "timestampEdited": None,
