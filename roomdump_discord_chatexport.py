@@ -108,7 +108,7 @@ def main():
 
     for roomid in sys.argv[1:]:
         res = dump_room(roomid)
-        with open(roomid + ".json", "r+") as f:
+        with open(roomid + ".json", "w+") as f:
             f.write(res)
 
 
