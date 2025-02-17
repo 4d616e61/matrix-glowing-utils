@@ -65,7 +65,9 @@ def dump_room(roomid):
 
     res_parsed = []
     for v in res_pg:
-        res_parsed.append(json.loads(v[0]))
+        obj = json.loads(v[0])
+        obj["event_id"] = v[1]
+        res_parsed.append(obj)
 
     res_parsed.sort(key= lambda d : d["origin_server_ts"])
 
