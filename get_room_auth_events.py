@@ -6,4 +6,4 @@ import json
 matrix_utils.init_pg()
 res = matrix_utils.get_all_events_matching(f"type='m.room.member' and room_id='{sys.argv[1]}' order by origin_server_ts desc limit 1")
 res = json.loads(res[0][0])
-print(res["auth_events"])
+print(json.dumps(res["auth_events"], indent=4))
